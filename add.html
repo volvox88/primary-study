@@ -38,7 +38,7 @@
         var idDiv = document.getElementById("id");
         var questionDiv = document.getElementById("question");
         var answerDiv = document.getElementById("answer");
-        var answer;
+        var answer='';
         var startTime;
 
         var totalTime = 0;
@@ -58,6 +58,7 @@
         gen();
 
         function clk() {
+            if(answer=='') return;
             var myAnswer = this.innerText;
             questionDiv.innerText += " " + answer;
             questionDiv.className = answer == myAnswer ? 'right' : 'wrong';
@@ -67,6 +68,7 @@
             }
             totalTime += cost;
             count++;
+            answer='';
             if (count < maxCount) {
                 setTimeout(gen, 1000);
             } else {
