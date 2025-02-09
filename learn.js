@@ -39,15 +39,18 @@ function clk() {
 }
 
 //初始答案按钮
-for (var i = 0; i < 20; i++) {
-    var btn = document.createElement("button");
-    btn.innerText = i + 1;
-    btn.onclick = clk;
-    answerDiv.appendChild(btn);
-    if (i % 10 == 9) {
-        answerDiv.appendChild(document.createElement("br"));
+function initButtion() {
+    for (var i = 0; i < 20; i++) {
+        var btn = document.createElement("button");
+        btn.innerText = i + 1;
+        btn.onclick = clk;
+        answerDiv.appendChild(btn);
+        if (i % 10 == 9) {
+            answerDiv.appendChild(document.createElement("br"));
+        }
     }
 }
+initButtion();
 
 //初始化题目
 function gen() {
@@ -98,5 +101,23 @@ function wheelSelection() {
         if (randomValue <= cumulativeTime) {
             return { question: question, answer: board[question].answer };
         }
+    }
+}
+
+//积分榜显示
+idDiv.ondblclick = function () {
+    var board = getScoreBoard();
+    for (var a = 1; a < 10; a++) {
+        var row = document.createElement("div");
+        row.className = "board"
+        for (var b = 1; b <= a; b++) {
+            var cell = document.createElement("div");
+            var q = a + " + " + b + " =";
+            var score = Math.round(2000000.0 / board[q].time);
+            cell.innerHTML = "[" + q + "]<br/>" + score;
+            cell.style.backgroundColor = "hsl(" + Math.round(score / 1000.0 * 120) + " 100% 50%)";
+            row.appendChild(cell);
+        }
+        answerDiv.appendChild(row);
     }
 }
