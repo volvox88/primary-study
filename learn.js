@@ -40,12 +40,18 @@ function clk() {
 
 //初始答案按钮
 function initButtion() {
+    var isTouch = idDiv.ontouchstart===null;
+
     var line1 = document.createElement("div");
     var line2 = document.createElement("div");
     for (var i = 0; i < 20; i++) {
         var btn = document.createElement("div");
         btn.innerText = i + 1;
-        btn.onmousedown = clk;
+        if (isTouch) {
+            btn.ontouchstart = clk;
+        } else {
+            btn.onmousedown = clk;
+        }
         btn.className = 'button';
         if (i < 10) {
             line1.appendChild(btn);
