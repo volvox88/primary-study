@@ -41,9 +41,10 @@ function clk() {
 //初始答案按钮
 function initButtion() {
     for (var i = 0; i < 20; i++) {
-        var btn = document.createElement("button");
+        var btn = document.createElement("div");
         btn.innerText = i + 1;
-        btn.onclick = clk;
+        btn.onmousedown = clk;
+        btn.className = 'button';
         answerDiv.appendChild(btn);
         if (i % 10 == 9) {
             answerDiv.appendChild(document.createElement("br"));
