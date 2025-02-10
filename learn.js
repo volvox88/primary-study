@@ -12,6 +12,8 @@ var count = 0;
 var maxCount = parseInt(new URL(location.href).searchParams.get("c") || "20");
 var user = new URL(location.href).searchParams.get("u") || "default"
 
+document.title = "练习 | 用户: " + user;
+
 //答案按钮点击事件
 function clk() {
     if (answer == '') return;
@@ -19,6 +21,7 @@ function clk() {
     questionDiv.innerText += " " + answer;
     questionDiv.className = answer == myAnswer ? 'right' : 'wrong';
     var cost = new Date().getTime() - startTime;
+    cost = cost * 1.434;
     if (answer == myAnswer) {
         correct++;
         updateScoreBoard(question, cost);
@@ -40,7 +43,7 @@ function clk() {
 
 //初始答案按钮
 function initButtion() {
-    var isTouch = idDiv.ontouchstart===null;
+    var isTouch = idDiv.ontouchstart === null;
 
     var line1 = document.createElement("div");
     var line2 = document.createElement("div");
