@@ -21,7 +21,7 @@ function clk() {
     questionDiv.innerText += " " + answer;
     questionDiv.className = answer == myAnswer ? 'right' : 'wrong';
     var cost = new Date().getTime() - startTime;
-    cost = cost * 1.434;
+    cost = cost * 1.434;//分数缩放
     if (answer == myAnswer) {
         correct++;
         updateScoreBoard(question, cost);
@@ -69,7 +69,7 @@ initButtion();
 
 //初始化题目
 function gen() {
-    var qa = wheelSelection();
+    var qa = getRandomQuestion();
     idDiv.innerText = "第" + (count + 1) + "/" + maxCount + "题";
     questionDiv.innerText = qa.question;
     questionDiv.className = '';
@@ -99,22 +99,35 @@ function updateScoreBoard(question, time) {
     localStorage.setItem("board-" + user, JSON.stringify(board));
 }
 
-// 轮盘赌问题选择函数
-function wheelSelection() {
+function cumulatedProbability(n) {
+    return 2 / (1 + Math.pow(Math.E, -0.2198 * n)) - 1;
+}
+
+function getWeight(n) {
+    return cumulatedProbability(n) - cumulatedProbability(n - 1);
+}
+
+function getRandomQuestion() {
     var board = getScoreBoard();
-    var totalTime = 0;
-    // 计算所有问题的总时间
-    for (var question in board) {
-        totalTime += board[question].time;
-    }
-    // 生成一个 0 到总时间之间的随机数
-    var randomValue = Math.random() * totalTime;
-    var cumulativeTime = 0;
-    // 遍历每个问题，根据累积时间来选择问题
-    for (var question in board) {
-        cumulativeTime += board[question].time;
-        if (randomValue <= cumulativeTime) {
-            return { question: question, answer: board[question].answer };
+    var questions = Object.keys(board);
+
+    // 对问题按 time 值进行降序排序
+    questions.sort((a, b) => board[b].time - board[a].time);
+
+    var weights = questions.map((q, index) => getWeight(index + 1));
+
+    // 计算权重总和
+    var totalWeight = weights.reduce((sum, w) => sum + w, 0);
+
+    // 生成一个介于 0 和 totalWeight 之间的随机数
+    var rand = Math.random() * totalWeight;
+
+    // 根据随机数选择问题
+    let cumulative = 0;
+    for (let i = 0; i < questions.length; i++) {
+        cumulative += weights[i];
+        if (rand < cumulative || i == questions.length - 1) {
+            return { question: questions[i], answer: board[questions[i]].answer };;
         }
     }
 }
