@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <style>
+        body {
+            overscroll-behavior-x: none;
+        }
+
+        div {
+            cursor: default;
+            text-align: center;
+        }
+
+        #question {
+            font-size: 90px;
+        }
+
+        #id {
+            font-size: 45px;
+        }
+
+        .right {
+            color: green;
+        }
+
+        .wrong {
+            color: red;
+        }
+
+        .select {
+            color: blue;
+        }
+
+        div.button {
+            width: 80px;
+            font-size: 45px;
+            text-align: center;
+            background-color: #EEE;
+            border: 1px solid #888;
+            border-radius: 0px;
+            display: inline-block;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+            margin: 20px 6px;
+            padding: 6px 0px;
+            -webkit-user-select: none;
+        }
+
+        #answer>div {
+            display: inline-block;
+            width: 37%;
+        }
+    </style>
+    <script src="double.js" defer></script>
+</head>
+
+<body>
+    <div id="id"></div>
+    <div id="question"></div>
+    <div id="answer"></div>
+</body>
+
+</html>
