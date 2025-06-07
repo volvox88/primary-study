@@ -52,11 +52,11 @@ function clk() {
     answer = '';
     userAnswer = 0;
     if (count < maxCount) {
-        setTimeout(gen, 1000);
+        setTimeout(gen, answer == myAnswer ? 1000 : 3000);
     } else {
         setTimeout(() => {
             //标准用时：2000ms=1000分
-            questionDiv.innerText = Math.round(1.0 * correct / totalTime / (1.0 / 2000) * 1000) * 2;
+            questionDiv.innerText = Math.round(1.0 * correct / totalTime / (1.0 / 2000) * 1000) * 3.8;
         }, 1000);
     }
 }
