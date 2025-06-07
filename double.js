@@ -44,7 +44,8 @@ function clk() {
     questionDiv.className = answer == myAnswer ? 'right' : 'wrong';
     var cost = new Date().getTime() - startTime;
     cost = cost * 1.434;//分数缩放
-    if (answer == myAnswer) {
+    var thisCorrect = answer == myAnswer;
+    if (thisCorrect) {
         correct++;
     }
     totalTime += cost;
@@ -52,7 +53,7 @@ function clk() {
     answer = '';
     userAnswer = 0;
     if (count < maxCount) {
-        setTimeout(gen, answer == myAnswer ? 1000 : 3000);
+        setTimeout(gen, thisCorrect ? 1000 : 3000);
     } else {
         setTimeout(() => {
             //标准用时：2000ms=1000分
