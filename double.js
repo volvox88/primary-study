@@ -14,7 +14,7 @@ var maxCount = parseInt(new URL(location.href).searchParams.get("c") || "20");
 
 //答案按钮点击事件
 function clk() {
-    if (answer == '') return;
+    if (answer === '') return;
     var thisAnswer = Number.parseInt(this.getAttribute("data-value"));
     if (thisAnswer & userAnswer & 0xff00) {
         //same digit
@@ -95,7 +95,7 @@ function getRandomQuestion() {
     do {
         var a = Math.floor(Math.random() * 100);
         var b = Math.floor(Math.random() * 200) - 100;
-        if (a + b >= 0 && a + b < 100 && Math.abs(a) > 10 && Math.abs(b) > 10) {
+        if (a + b >= 0 && a + b < 100 && Math.abs(a) >= 10 && Math.abs(b) >= 10) {
             return { question: "" + a + (b > 0 ? " + " : " - ") + Math.abs(b) + " =", answer: a + b };
         }
     } while (true);
@@ -116,3 +116,4 @@ function gen() {
     }
 }
 gen();
+
